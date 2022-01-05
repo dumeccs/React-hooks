@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+
+import React, { useState } from "react"
+import Search from "./components/Search";
+
 
 function App() {
+  const [state, setState] = useState({
+    s: "",
+    results: [],
+    selected: {}
+  });
+  const apiurl =  "http://www.omdbapi.com/?i=tt3896198&apikey=58ad1a09"
+
+  const handleInput = (e) => {
+    let s = e.target.value;
+
+    setState(prevState => {
+      return {...prevState, s:s}
+    });
+    console.log(state.s)
+  }
+   
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header >
+        <h1>Movie Listings</h1>
       </header>
+      <main>
+        <Search handleInput = {handleInput}/>
+      </main>
     </div>
   );
 }
